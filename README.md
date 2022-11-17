@@ -5,8 +5,6 @@ This github repository is place I store my taken notes and exercises when readin
 
 Thanks professor Noam Nisan and professor Shimon Shocken for writing a super cool book and creating excellent tools and teaching great courses.
 
-> *What I hear, I forget; What I see, I remember; What I do, I understand* <br/>
-> —Confucius, 551–479 BC
 
 
 ### [Chapter 1: Boolean logic](nand2tetris/projects/01)
