@@ -21,7 +21,7 @@ Thanks professor Noam Nisan and professor Shimon Shocken for writing a super coo
     * DMux(in, sel)
     <br />![](images/dmux.png)
 
-### [Chapter 2: Boolean arithmetic](nand2tetris/projects/02)
+### [Chapter 2: Boolean arithmetic]
 * **Signed Binary Number**: Most computer systems today use the method called *2's complement*, aka *radix complement*. In 2's complement of n bits, x + (minus) x = 2 to the n. With *radix complement* we don't need to care about substraction operation. We can substract with add operation. That's super cool. So we only need Adders chip.
 <br />![radix](images/radix.png)
 
@@ -34,7 +34,7 @@ Thanks professor Noam Nisan and professor Shimon Shocken for writing a super coo
 * **ALU**
 <br />![](images/alu.png)
 
-### [Chapter 3: Sequential logic](nand2tetris/projects/03)
+### [Chapter 3: Sequential logic]
 * **Combinational vs Sequential Logic**
 <br />![comb-vs-seq](images/combinational-vs-sequential.png)
     * **Combinational Logic**: An implementation of boolean function. The output depends on only the input. Meaning with a certain input there is a certain output.
@@ -54,14 +54,14 @@ Thanks professor Noam Nisan and professor Shimon Shocken for writing a super coo
 <br />![ram](images/ram.png)
 
 
-### [Chapter 4: Machine language](nand2tetris/projects/04)
+### [Chapter 4: Machine language]
 * **A Instruction**
 <br />![a](images/a-instruction.png)
 * **C Instruction**
 <br />![a](images/c-instruction.png)
 
 
-### [Chapter 5: Computer architecture](nand2tetris/projects/05)
+### [Chapter 5: Computer architecture]
 * **Central Processing Unit (CPU) of Hack Computer**
     * *CPU Abstraction*
     <br />![abstraction](images/cpu-abstraction.png)
@@ -72,7 +72,7 @@ Thanks professor Noam Nisan and professor Shimon Shocken for writing a super coo
 <br />![hack](images/hack-architecture.png)
 
 
-### [Chapter 6: Assembler](nand2tetris/projects/06)
+### [Chapter 6: Assembler]
 <br />![assembler](images/assembler.png)
 
 * **Symbols**
@@ -90,12 +90,12 @@ Thanks professor Noam Nisan and professor Shimon Shocken for writing a super coo
 
     The table above is the symbol table for the program above. Since in Hack system we allocate memory for variable from memory 16 so the memory location for variable *i* will be 16 and *sum* will be 17. To specify label *LOOP* and *END* we count the number of instructions in the program so that *LOOP* will be4 and *END* will be 18. 
 
-### [Chapter 7: Virtual machine I - Stack arithmetic](nand2tetris/projects/07) 
-### [Chapter 8: Virtual machine II - Program control](nand2tetris/projects/08)
-### [Chapter 9: High-level language](nand2tetris/projects/09)
-### [Chapter 10: Compiler I - Syntax analysis](nand2tetris/projects/10)
+### [Chapter 7: Virtual machine I - Stack arithmetic]
+### [Chapter 8: Virtual machine II - Program control]
+### [Chapter 9: High-level language]
+### [Chapter 10: Compiler I - Syntax analysis]
 
-### [Chapter 11: Compiler II - Code generation](nand2tetris/projects/11)
+### [Chapter 11: Compiler II - Code generation]
 The compilation of high-level programming language into a low-level one focuses on 2 main issues: ***data translation*** and ***command translation***
 #### 11.1 Data translation
 * **Variables** For variables we need to care about some of its properties
@@ -118,7 +118,7 @@ The compilation of high-level programming language into a low-level one focuses 
 
 * **Handling flow of control**
 
-### [Chapter 12: Operating system](nand2tetris/projects/12)
+### [Chapter 12: Operating system]
 * **Memory management**
     * *Heap management*
     <br/>![](images/heap-management.png)
