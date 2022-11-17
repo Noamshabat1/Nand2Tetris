@@ -42,7 +42,6 @@ Thanks professor Noam Nisan and professor Shimon Shocken for writing a super coo
         * Use clock
         * Maintain state
         * Output depends on input and the current state
-    * [Good explaination of differences between Combinational and Sequential](https://www.cs.umd.edu/class/sum2003/cmsc311/Notes/Seq/diff.html)
 
 
 * **Data Flip-Flop (DFF)** contains a clock input, a gate's input and a gate's output. DFF behavior is *out(t) = in(t-1)* where t is the current clock cycle. 
@@ -91,8 +90,11 @@ Thanks professor Noam Nisan and professor Shimon Shocken for writing a super coo
     The table above is the symbol table for the program above. Since in Hack system we allocate memory for variable from memory 16 so the memory location for variable *i* will be 16 and *sum* will be 17. To specify label *LOOP* and *END* we count the number of instructions in the program so that *LOOP* will be4 and *END* will be 18. 
 
 ### [Chapter 7: Virtual machine I - Stack arithmetic]
+
 ### [Chapter 8: Virtual machine II - Program control]
+
 ### [Chapter 9: High-level language]
+
 ### [Chapter 10: Compiler I - Syntax analysis]
 
 ### [Chapter 11: Compiler II - Code generation]
