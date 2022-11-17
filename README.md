@@ -7,7 +7,7 @@ Thanks professor Noam Nisan and professor Shimon Shocken for writing a super coo
 
 
 
-### [Chapter 1: Boolean logic](nand2tetris/projects/01)
+### [Chapter 1: Boolean logic](nand-to-tetris/projects/01)
 * **Truth table representation**
 * **Canonical representation**
 * **Logic gates**
