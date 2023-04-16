@@ -130,12 +130,6 @@ class Parser:
         elif cmd == "call":
             return "C_CALL"
         else:
-            # "C_LABEL"
-            # "C_GOTO",
-            # "C_IF"
-            # "C_FUNCTION"
-            # "C_RETURN"
-            # "C_CALL"
             raise NameError("Unexpected Command Type")
 
     def arg1(self) -> str:

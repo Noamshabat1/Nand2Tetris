@@ -53,9 +53,9 @@ class CodeWriter:
 
         self.filename = ""
         self.func = ""
-        self.perv_func = ""
-        self.i = 0
-        self.perv_i = 0
+        self.before_func = ""
+        self.index = 0
+        self.Before_index = 0
 
     def set_file_name(self, filename: str) -> None:
         """Informs the code writer that the translation of a new VM file is 
@@ -299,7 +299,7 @@ class CodeWriter:
         self.write_to_file(["// " + command])
         self.write_to_file(current_cmd)
 
-    def check_over_flow(self):
+    def check_over_flow(self) -> None:
         pass
 
     def write_push_pop(self, command: str, segment: str, index: int) -> None:
@@ -465,8 +465,8 @@ class CodeWriter:
         # This is irrelevant for project 7,
         # you will implement this in project 8!
 
-        # lines = ["(" + self.func + "$" + label + ")"]
-        # self.write_to_file(lines)
+        lines = ["(" + self.func + "$" + label + ")"]
+        self.write_to_file(lines)
 
     def write_goto(self, label: str) -> None:
         """Writes assembly code that affects the goto command.
@@ -477,8 +477,9 @@ class CodeWriter:
         # This is irrelevant for project 7,
         # you will implement this in project 8!
 
-        # lines = ["@" + self.func + "$" + label, "0;JMP"]
-        # self.write_to_file(lines)
+        lines = ["@" + self.func + "$" + label,
+                 "0;JMP"]
+        self.write_to_file(lines)
 
     def write_if(self, label: str) -> None:
         """Writes assembly code that affects the if-goto command.
@@ -489,13 +490,14 @@ class CodeWriter:
         # This is irrelevant for project 7,
         # you will implement this in project 8!
 
-        # lines = ["@SP",
-        #          "M=M-1",
-        #          "A=M",
-        #          "D=M",
-        #          "@" + self.func + "$" + label,
-        #          "D;JNE"]
-        # self.write_to_file(lines)
+        cmd = ["@SP",
+               "M=M-1",
+               "A=M",
+               "D=M",
+               "@" + self.func + "$" + label,
+               "D;JNE"]
+
+        self.write_to_file(cmd)
 
     def write_function(self, function_name: str, n_vars: int) -> None:
         """Writes assembly code that affects the function command.
@@ -516,15 +518,24 @@ class CodeWriter:
         # repeat n_vars times:  // n_vars = number of local variables
         #   push constant 0     // initializes the local variables to 0
 
-        # self.perv_func = self.func
-        # self.func = function_name
-        # self.perv_i = self.i
-        # self.i = 0
-        # lines = ["(" + function_name + ")", "@LCL", "A=M"]
-        # for i in range(n_vars):
-        #     lines += ["M=0", "A=A+1"]
-        # lines += ["@" + str(n_vars), "D=A", "@SP", "M=M+D"]
-        # self.write_to_file(lines)
+        self.before_func = self.func
+        self.func = function_name
+        self.Before_index = self.index
+        self.index = 0
+        cmd = ["(" + function_name + ")",
+               "@SP", "D=M",
+               "@LCL",
+               "M=D"]
+
+        for i in range(n_vars):
+            cmd += ["@SP", "M=M+1", "A=M-1", "M=0"]
+        #
+        # cmd += ["@" + str(n_vars),
+        #         "D=A",
+        #         "@SP",
+        #         "M=M+D"]
+
+        self.write_to_file(cmd)
 
     def write_call(self, function_name: str, n_args: int) -> None:
         """Writes assembly code that affects the call command. 
@@ -555,19 +566,63 @@ class CodeWriter:
         # goto function_name    // transfers control to the callee
         # (return_address)      // injects the return address label into the code
 
-        # self.i += 1
-        # lines = ["@" + self.func + "$ret" + str(self.i), "D=A", "@SP", "M=M+1", "A=M-1", "M=D"]  # TODO: not working
-        # lines += ["@LCL", "D=M", "@SP", "M=M+1", "A=M-1", "M=D"]
-        # lines += ["@ARG", "D=M", "@SP", "M=M+1", "A=M-1", "M=D"]
-        # lines += ["@THIS", "D=M", "@SP", "M=M+1", "A=M-1", "M=D"]
-        # lines += ["@THAT", "D=M", "@SP", "M=M+1", "A=M-1", "M=D"]
-        # lines += ["@SP", "D=M", "@5", "D=D-A", "@" + str(n_args), "D=D-A", "@ARG", "M=D"]
-        # lines += ["@SP", "D=M", "@LCL", "M=D"]
-        # lines += ["@" + function_name, "0;JMP"]
-        # self.write_to_file(lines)
+        self.index += 1
+        cmd = ["@" + self.func + "$ret" + str(self.index),  # TODO: not working
+               "D=A",
+               "@SP",
+               "M=M+1",
+               "A=M-1",
+               "M=D"]
+
+        cmd += ["@LCL",
+                "D=M",
+                "@SP",
+                "M=M+1",
+                "A=M-1",
+                "M=D"]
+
+        cmd += ["@ARG",
+                "D=M",
+                "@SP",
+                "M=M+1",
+                "A=M-1",
+                "M=D"]
+
+        cmd += ["@THIS",
+                "D=M",
+                "@SP",
+                "M=M+1",
+                "A=M-1",
+                "M=D"]
+
+        cmd += ["@THAT",
+                "D=M",
+                "@SP",
+                "M=M+1",
+                "A=M-1",
+                "M=D"]
+
+        cmd += ["@SP",
+                "D=M",
+                "@5",
+                "D=D-A",
+                "@" + str(n_args),
+                "D=D-A",
+                "@ARG",
+                "M=D"]
+
+        cmd += ["@SP",
+                "D=M",
+                "@LCL",
+                "M=D"]
+
+        cmd += ["@" + function_name,
+                "0;JMP"]
+
+        self.write_to_file(cmd)
         # self.write_goto(function_name)
-        # self.output_file.write("(" + self.func + "$ret" + str(self.i) + ")")
-        # self.output_file.write("\n")
+        self.output_file.write("(" + self.func + "$ret" + str(self.index) + ")")
+        self.output_file.write("\n")
 
     def write_return(self) -> None:
         """Writes assembly code that affects the return command."""
@@ -584,25 +639,69 @@ class CodeWriter:
         # LCL = *(frame-4)              // restores LCL for the caller
         # goto return_address           // go to the return address
 
-        # lines = ["@LCL", "D=M", "@R15", "M=D", "@5", "A=D-A", "D=M", "@R14", "M=D"]
-        # self.write_to_file(lines)
-        # self.write_push_pop("C_POP", "argument", 0)
-        # lines = ["@ARG", "D=M+1", "@SP", "M=D"]
-        # lines += ["@R15", "M=M-1", "A=M", "D=M", "@THAT", "M=D"]
-        # lines += ["@R15", "M=M-1", "A=M", "D=M", "@THIS", "M=D"]
-        # lines += ["@R15", "M=M-1", "A=M", "D=M", "@ARG", "M=D"]
-        # lines += ["@R15", "M=M-1", "A=M", "D=M", "@LCL", "M=D"]
-        # lines += ["@R14", "A=M", "0;JMP"]
-        # self.write_to_file(lines)
+        cmd = ["@LCL",
+               "D=M",
+               "@R13",
+               "M=D",
+               "@5",
+               "A=D-A",
+               "D=M",
+               "@R14",
+               "M=D"]
+
+        self.write_to_file(cmd)
+        self.write_push_pop("C_POP", "argument", 0)
+
+        cmd = ["@ARG",
+               "D=M+1",
+               "@SP",
+               "M=D"]
+
+        cmd += ["@R13",
+                "M=M-1",
+                "A=M",
+                "D=M",
+                "@THAT",
+                "M=D"]
+
+        cmd += ["@R13",
+                "M=M-1",
+                "A=M",
+                "D=M",
+                "@THIS",
+                "M=D"]
+
+        cmd += ["@R13",
+                "M=M-1",
+                "A=M",
+                "D=M",
+                "@ARG",
+                "M=D"]
+
+        cmd += ["@R13",
+                "M=M-1",
+                "A=M",
+                "D=M",
+                "@LCL",
+                "M=D"]
+
+        cmd += ["@R14",
+                "A=M",
+                "0;JMP"]
+
+        self.write_to_file(cmd)
 
     def write_to_file(self, lines: list) -> None:
         for i in lines:
             self.output_file.write(i)
             self.output_file.write("\n")
 
-    # def write_init(self):
-    #     lines = ["@256", "D=A", "@R0", "M=D", "@300", "D=A", "@R1", "M=D", "@400", "D=A", "@R2", "M=D"]
-    #     self.write_to_file(lines)
-    #     self.write_call("Sys.init", 0)
+    def write_init(self) -> None:
+        lines = ["@256",
+                 "D=A",
+                 "@R0",
+                 "M=D",]
+        self.write_to_file(lines)
+        self.write_call("Sys.init", 0)
 
-    # @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ #
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ #

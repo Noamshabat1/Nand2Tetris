@@ -12,21 +12,21 @@ from Parser import Parser
 from CodeWriter import CodeWriter
 
 
-def translate_file(input_file: typing.TextIO, output_file: typing.TextIO) -> None:
+def translate_file(input_file: typing.TextIO, output_file: typing.TextIO, bootstrap: bool) -> None:
     """Translates a single file.
 
     Args:
         input_file (typing.TextIO): the file to translate.
         output_file (typing.TextIO): writes all output to this file.
+        bootstrap (bool): if this is True, the current file is the
+            first file we are translating.
     """
-    # It might be good to start with something like:
-    # parser = Parser(input_file)
-    # code_writer = CodeWriter(output_file)
     parser = Parser(input_file)
     code_writer = CodeWriter(output_file)
     input_filename, input_extension = os.path.splitext(os.path.basename(input_file.name))
     code_writer.set_file_name(input_filename)
-    # code_writer.write_init()
+    if bootstrap:
+        code_writer.write_init()
     while parser.has_more_commands():
         c_type = parser.command_type()
         if c_type != "C_RETURN":
@@ -36,18 +36,18 @@ def translate_file(input_file: typing.TextIO, output_file: typing.TextIO) -> Non
             elif c_type == "C_POP" or c_type == "C_PUSH":
                 arg2 = parser.arg2()
                 code_writer.write_push_pop(c_type, arg1, arg2)
-            # elif c_type == "C_GOTO":
-            #     code_writer.write_goto(arg1)
-            # elif c_type == "C_IF":
-            #     code_writer.write_if(arg1)
-            # elif c_type == "C_LABEL":
-            #     code_writer.write_label(arg1)
-            # elif c_type == "C_FUNCTION":
-            #     arg2 = parser.arg2()
-            #     code_writer.write_function(arg1, arg2)
-            # elif c_type == "C_CALL":
-            #     arg2 = parser.arg2()
-            #     code_writer.write_call(arg1, arg2)
+            elif c_type == "C_GOTO":
+                code_writer.write_goto(arg1)
+            elif c_type == "C_IF":
+                code_writer.write_if(arg1)
+            elif c_type == "C_LABEL":
+                code_writer.write_label(arg1)
+            elif c_type == "C_FUNCTION":
+                arg2 = parser.arg2()
+                code_writer.write_function(arg1, arg2)
+            elif c_type == "C_CALL":
+                arg2 = parser.arg2()
+                code_writer.write_call(arg1, arg2)
         else:
             code_writer.write_return()
         parser.advance()
@@ -62,22 +62,22 @@ if "__main__" == __name__:
     if not len(sys.argv) == 2:
         sys.exit("Invalid usage, please use: VMtranslator <input path>")
     argument_path = os.path.abspath(sys.argv[1])
-
     if os.path.isdir(argument_path):
-        files_to_translate = [os.path.join(argument_path, filename) for filename in os.listdir(argument_path)]
-        output_path = os.path.join(argument_path, os.path.basename(argument_path))
-
+        files_to_translate = [
+            os.path.join(argument_path, filename)
+            for filename in os.listdir(argument_path)]
+        output_path = os.path.join(argument_path, os.path.basename(
+            argument_path))
     else:
         files_to_translate = [argument_path]
         output_path, extension = os.path.splitext(argument_path)
     output_path += ".asm"
-
+    bootstrap = True
     with open(output_path, 'w') as output_file:
         for input_path in files_to_translate:
             filename, extension = os.path.splitext(input_path)
-
             if extension.lower() != ".vm":
                 continue
-
             with open(input_path, 'r') as input_file:
-                translate_file(input_file, output_file)
+                translate_file(input_file, output_file, bootstrap)
+            bootstrap = False
