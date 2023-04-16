@@ -1,0 +1,246 @@
+// C_PUSH argument 1
+@1
+D=A
+@ARG
+A=M+D
+D=M
+@SP
+A=M
+M=D
+@SP
+M=M+1
+// C_POP pointer 1
+@SP
+A=M-1
+D=M
+@THAT
+M=D
+@SP
+M=M-1
+// C_PUSH constant 0
+@0
+D=A
+@SP
+A=M
+M=D
+@SP
+M=M+1
+// C_POP that 0
+@0
+D=A
+@THAT
+D=M+D
+@R15
+M=D
+@SP
+A=M-1
+D=M
+@R15
+A=M
+M=D
+@SP
+M=M-1
+// C_PUSH constant 1
+@1
+D=A
+@SP
+A=M
+M=D
+@SP
+M=M+1
+// C_POP that 1
+@1
+D=A
+@THAT
+D=M+D
+@R15
+M=D
+@SP
+A=M-1
+D=M
+@R15
+A=M
+M=D
+@SP
+M=M-1
+// C_PUSH argument 0
+@0
+D=A
+@ARG
+A=M+D
+D=M
+@SP
+A=M
+M=D
+@SP
+M=M+1
+// C_PUSH constant 2
+@2
+D=A
+@SP
+A=M
+M=D
+@SP
+M=M+1
+// sub
+@SP
+M=M-1
+A=M
+D=-M
+A=A-1
+M=D+M
+// C_POP argument 0
+@0
+D=A
+@ARG
+D=M+D
+@R15
+M=D
+@SP
+A=M-1
+D=M
+@R15
+A=M
+M=D
+@SP
+M=M-1
+($MAIN_LOOP_START)
+// C_PUSH argument 0
+@0
+D=A
+@ARG
+A=M+D
+D=M
+@SP
+A=M
+M=D
+@SP
+M=M+1
+@SP
+M=M-1
+A=M
+D=M
+@$COMPUTE_ELEMENT
+D;JNE
+@$END_PROGRAM
+0;JMP
+($COMPUTE_ELEMENT)
+// C_PUSH that 0
+@0
+D=A
+@THAT
+A=M+D
+D=M
+@SP
+A=M
+M=D
+@SP
+M=M+1
+// C_PUSH that 1
+@1
+D=A
+@THAT
+A=M+D
+D=M
+@SP
+A=M
+M=D
+@SP
+M=M+1
+// add
+@SP
+M=M-1
+A=M
+D=M
+A=A-1
+M=D+M
+// C_POP that 2
+@2
+D=A
+@THAT
+D=M+D
+@R15
+M=D
+@SP
+A=M-1
+D=M
+@R15
+A=M
+M=D
+@SP
+M=M-1
+// C_PUSH pointer 1
+@THAT
+D=M
+@SP
+A=M
+M=D
+@SP
+M=M+1
+// C_PUSH constant 1
+@1
+D=A
+@SP
+A=M
+M=D
+@SP
+M=M+1
+// add
+@SP
+M=M-1
+A=M
+D=M
+A=A-1
+M=D+M
+// C_POP pointer 1
+@SP
+A=M-1
+D=M
+@THAT
+M=D
+@SP
+M=M-1
+// C_PUSH argument 0
+@0
+D=A
+@ARG
+A=M+D
+D=M
+@SP
+A=M
+M=D
+@SP
+M=M+1
+// C_PUSH constant 1
+@1
+D=A
+@SP
+A=M
+M=D
+@SP
+M=M+1
+// sub
+@SP
+M=M-1
+A=M
+D=-M
+A=A-1
+M=D+M
+// C_POP argument 0
+@0
+D=A
+@ARG
+D=M+D
+@R15
+M=D
+@SP
+A=M-1
+D=M
+@R15
+A=M
+M=D
+@SP
+M=M-1
+@$MAIN_LOOP_START
+0;JMP
+($END_PROGRAM)

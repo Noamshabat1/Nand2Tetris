@@ -1,0 +1,1100 @@
+function Game.new 0
+push constant 5
+call Memory.alloc 1
+pop pointer 0
+push argument 0
+pop this 0
+push constant 40
+pop this 3
+push constant 0
+not
+pop static 0
+push constant 0
+pop static 1
+push constant 236
+pop static 2
+push constant 8
+pop static 3
+push constant 0
+pop static 8
+push constant 1
+pop static 4
+push constant 2
+pop static 5
+push constant 3
+pop static 6
+push constant 4
+pop static 7
+push constant 45
+pop static 9
+push pointer 0
+push constant 0
+push constant 0
+call Game.setCursor 3
+pop temp 0
+push pointer 0
+return
+function Game.run 2
+push argument 0
+pop pointer 0
+push constant 0
+pop local 1
+push this 0
+call Presets.get 1
+pop this 4
+push pointer 0
+call Game.drawBoard 1
+pop temp 0
+push pointer 0
+push constant 0
+call Game.drawCursor 2
+pop temp 0
+label WHILE_EXP0
+push local 0
+push constant 113
+eq
+not
+push local 0
+push constant 81
+eq
+not
+push local 1
+not
+and
+and
+not
+if-goto WHILE_END0
+push constant 0
+pop local 0
+label WHILE_EXP1
+push local 0
+push constant 0
+eq
+not
+if-goto WHILE_END1
+call Keyboard.keyPressed 0
+pop local 0
+goto WHILE_EXP1
+label WHILE_END1
+push pointer 0
+push constant 0
+not
+call Game.drawCursor 2
+pop temp 0
+push local 0
+push constant 131
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push this 1
+push constant 0
+eq
+not
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push pointer 0
+push this 1
+push constant 1
+sub
+push this 2
+call Game.setCursor 3
+pop temp 0
+label IF_FALSE1
+label IF_FALSE0
+push local 0
+push constant 130
+eq
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
+push this 2
+push constant 0
+eq
+if-goto IF_TRUE3
+goto IF_FALSE3
+label IF_TRUE3
+goto IF_END3
+label IF_FALSE3
+push pointer 0
+push this 1
+push this 2
+push constant 1
+sub
+call Game.setCursor 3
+pop temp 0
+label IF_END3
+label IF_FALSE2
+push local 0
+push constant 133
+eq
+if-goto IF_TRUE4
+goto IF_FALSE4
+label IF_TRUE4
+push this 1
+push constant 5
+eq
+not
+if-goto IF_TRUE5
+goto IF_FALSE5
+label IF_TRUE5
+push pointer 0
+push this 1
+push constant 1
+add
+push this 2
+call Game.setCursor 3
+pop temp 0
+label IF_FALSE5
+label IF_FALSE4
+push local 0
+push constant 132
+eq
+if-goto IF_TRUE6
+goto IF_FALSE6
+label IF_TRUE6
+push this 2
+push constant 5
+eq
+not
+if-goto IF_TRUE7
+goto IF_FALSE7
+label IF_TRUE7
+push pointer 0
+push this 1
+push this 2
+push constant 1
+add
+call Game.setCursor 3
+pop temp 0
+label IF_FALSE7
+label IF_FALSE6
+push local 0
+push constant 32
+eq
+if-goto IF_TRUE8
+goto IF_FALSE8
+label IF_TRUE8
+push this 1
+push this 2
+if-goto IF_TRUE9
+goto IF_FALSE9
+label IF_TRUE9
+push pointer 0
+call Game.move 1
+pop temp 0
+label IF_FALSE9
+label IF_FALSE8
+push pointer 0
+push constant 0
+call Game.drawCursor 2
+pop temp 0
+push this 4
+push constant 2
+push constant 5
+call Board.get 3
+push constant 100
+eq
+if-goto IF_TRUE10
+goto IF_FALSE10
+label IF_TRUE10
+call RushHourGraphics.victory 0
+pop temp 0
+push constant 0
+not
+pop local 1
+label IF_FALSE10
+goto WHILE_EXP0
+label WHILE_END0
+push this 4
+call Board.dispose 1
+pop temp 0
+push constant 0
+return
+function Game.move 10
+push argument 0
+pop pointer 0
+push this 1
+push this 2
+pop local 0
+push constant 2
+pop local 1
+push constant 0
+not
+pop local 8
+push constant 0
+pop local 9
+push this 1
+pop local 2
+push this 2
+pop local 3
+push this 1
+pop local 4
+push this 2
+pop local 5
+push this 4
+push this 1
+push this 2
+call Board.get 3
+pop local 7
+push constant 0
+pop local 6
+push local 7
+push constant 114
+eq
+push local 7
+push constant 100
+eq
+or
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 0
+not
+pop local 9
+label IF_FALSE0
+push local 0
+push static 6
+eq
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push this 4
+push this 1
+push this 2
+push constant 1
+add
+call Board.get 3
+pop local 7
+push local 7
+push constant 42
+eq
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
+push constant 3
+pop local 1
+label IF_FALSE2
+label WHILE_EXP0
+push local 6
+push local 1
+lt
+not
+if-goto WHILE_END0
+push this 4
+push this 1
+push this 2
+push constant 1
+sub
+push local 6
+add
+push this 4
+push this 1
+push this 2
+push local 6
+add
+call Board.get 3
+call Board.set 4
+pop temp 0
+push local 6
+push constant 1
+add
+pop local 6
+goto WHILE_EXP0
+label WHILE_END0
+push this 4
+push this 1
+push this 2
+push local 1
+add
+push constant 1
+sub
+push static 9
+call Board.set 4
+pop temp 0
+push pointer 0
+push this 1
+push this 2
+push constant 1
+sub
+call Game.setCursor 3
+pop temp 0
+push local 3
+push constant 1
+sub
+pop local 3
+label IF_FALSE1
+push local 0
+push static 7
+eq
+if-goto IF_TRUE3
+goto IF_FALSE3
+label IF_TRUE3
+push this 4
+push this 1
+push this 2
+push constant 1
+sub
+call Board.get 3
+pop local 7
+push local 5
+push constant 1
+sub
+pop local 5
+push local 7
+push constant 42
+eq
+if-goto IF_TRUE4
+goto IF_FALSE4
+label IF_TRUE4
+push constant 3
+pop local 1
+push local 5
+push constant 1
+sub
+pop local 5
+label IF_FALSE4
+label WHILE_EXP1
+push local 6
+push local 1
+lt
+not
+if-goto WHILE_END1
+push this 4
+push this 1
+push this 2
+push constant 1
+add
+push local 6
+sub
+push this 4
+push this 1
+push this 2
+push local 6
+sub
+call Board.get 3
+call Board.set 4
+pop temp 0
+push local 6
+push constant 1
+add
+pop local 6
+goto WHILE_EXP1
+label WHILE_END1
+push this 4
+push this 1
+push this 2
+push local 1
+sub
+push constant 1
+add
+push static 9
+call Board.set 4
+pop temp 0
+push pointer 0
+push this 1
+push this 2
+push constant 1
+add
+call Game.setCursor 3
+pop temp 0
+push local 3
+push constant 2
+add
+push local 1
+sub
+pop local 3
+label IF_FALSE3
+push local 0
+push static 4
+eq
+if-goto IF_TRUE5
+goto IF_FALSE5
+label IF_TRUE5
+push this 4
+push this 1
+push constant 1
+add
+push this 2
+call Board.get 3
+pop local 7
+push constant 0
+pop local 8
+push local 7
+push constant 42
+eq
+if-goto IF_TRUE6
+goto IF_FALSE6
+label IF_TRUE6
+push constant 3
+pop local 1
+label IF_FALSE6
+label WHILE_EXP2
+push local 6
+push local 1
+lt
+not
+if-goto WHILE_END2
+push this 4
+push this 1
+push constant 1
+sub
+push local 6
+add
+push this 2
+push this 4
+push this 1
+push local 6
+add
+push this 2
+call Board.get 3
+call Board.set 4
+pop temp 0
+push local 6
+push constant 1
+add
+pop local 6
+goto WHILE_EXP2
+label WHILE_END2
+push this 4
+push this 1
+push local 1
+add
+push constant 1
+sub
+push this 2
+push static 9
+call Board.set 4
+pop temp 0
+push pointer 0
+push this 1
+push constant 1
+sub
+push this 2
+call Game.setCursor 3
+pop temp 0
+push local 2
+push constant 1
+sub
+pop local 2
+label IF_FALSE5
+push local 0
+push static 5
+eq
+if-goto IF_TRUE7
+goto IF_FALSE7
+label IF_TRUE7
+push this 4
+push this 1
+push constant 1
+sub
+push this 2
+call Board.get 3
+pop local 7
+push constant 0
+pop local 8
+push local 4
+push constant 1
+sub
+pop local 4
+push local 7
+push constant 42
+eq
+if-goto IF_TRUE8
+goto IF_FALSE8
+label IF_TRUE8
+push constant 3
+pop local 1
+push local 4
+push constant 1
+sub
+pop local 4
+label IF_FALSE8
+label WHILE_EXP3
+push local 6
+push local 1
+lt
+not
+if-goto WHILE_END3
+push this 4
+push this 1
+push constant 1
+add
+push local 6
+sub
+push this 2
+push this 4
+push this 1
+push local 6
+sub
+push this 2
+call Board.get 3
+call Board.set 4
+pop temp 0
+push local 6
+push constant 1
+add
+pop local 6
+goto WHILE_EXP3
+label WHILE_END3
+push this 4
+push this 1
+push constant 1
+add
+push local 1
+sub
+push this 2
+push static 9
+call Board.set 4
+pop temp 0
+push pointer 0
+push this 1
+push constant 1
+add
+push this 2
+call Game.setCursor 3
+pop temp 0
+push local 2
+push local 1
+sub
+push constant 2
+add
+pop local 2
+label IF_FALSE7
+push pointer 0
+push local 1
+push local 8
+push local 4
+push local 5
+push local 9
+push constant 0
+call Game.drawVehicle 7
+pop temp 0
+push pointer 0
+push local 1
+push local 8
+push local 2
+push local 3
+push local 9
+push constant 0
+not
+call Game.drawVehicle 7
+pop temp 0
+push constant 0
+return
+function Game.isValid 2
+push argument 0
+pop pointer 0
+push argument 1
+push argument 2
+pop local 0
+push local 0
+push static 6
+eq
+push argument 2
+push constant 0
+gt
+and
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push this 4
+push argument 1
+push argument 2
+push constant 1
+sub
+call Board.get 3
+pop local 1
+push local 1
+push static 9
+eq
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push constant 0
+not
+return
+label IF_FALSE1
+label IF_FALSE0
+push local 0
+push static 7
+eq
+push argument 2
+push constant 5
+lt
+and
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
+push this 4
+push argument 1
+push argument 2
+push constant 1
+add
+call Board.get 3
+pop local 1
+push local 1
+push static 9
+eq
+if-goto IF_TRUE3
+goto IF_FALSE3
+label IF_TRUE3
+push constant 0
+not
+return
+label IF_FALSE3
+label IF_FALSE2
+push local 0
+push static 4
+eq
+push argument 1
+push constant 0
+gt
+and
+if-goto IF_TRUE4
+goto IF_FALSE4
+label IF_TRUE4
+push this 4
+push argument 1
+push constant 1
+sub
+push argument 2
+call Board.get 3
+pop local 1
+push local 1
+push static 9
+eq
+if-goto IF_TRUE5
+goto IF_FALSE5
+label IF_TRUE5
+push constant 0
+not
+return
+label IF_FALSE5
+label IF_FALSE4
+push local 0
+push static 5
+eq
+push argument 1
+push constant 5
+lt
+and
+if-goto IF_TRUE6
+goto IF_FALSE6
+label IF_TRUE6
+push this 4
+push argument 1
+push constant 1
+add
+push argument 2
+call Board.get 3
+pop local 1
+push local 1
+push static 9
+eq
+if-goto IF_TRUE7
+goto IF_FALSE7
+label IF_TRUE7
+push constant 0
+not
+return
+label IF_FALSE7
+label IF_FALSE6
+push constant 0
+return
+function Game.setCursor 0
+push argument 0
+pop pointer 0
+push argument 1
+pop this 1
+push argument 2
+pop this 2
+push constant 0
+return
+function Game.getDir 2
+push argument 0
+pop pointer 0
+push static 8
+pop local 1
+push this 4
+push argument 1
+push argument 2
+call Board.get 3
+pop local 0
+push local 0
+push constant 60
+eq
+push local 0
+push constant 114
+eq
+or
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push static 6
+pop local 1
+goto IF_END0
+label IF_FALSE0
+push local 0
+push constant 62
+eq
+push local 0
+push constant 100
+eq
+or
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push static 7
+pop local 1
+goto IF_END1
+label IF_FALSE1
+push local 0
+push constant 94
+eq
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
+push static 4
+pop local 1
+goto IF_END2
+label IF_FALSE2
+push local 0
+push constant 118
+eq
+if-goto IF_TRUE3
+goto IF_FALSE3
+label IF_TRUE3
+push static 5
+pop local 1
+label IF_FALSE3
+label IF_END2
+label IF_END1
+label IF_END0
+push local 1
+return
+function Game.drawCursor 1
+push argument 0
+pop pointer 0
+push this 1
+push this 2
+pop local 0
+push pointer 0
+push this 1
+push this 2
+push argument 1
+call Game.drawCrossHairs 4
+pop temp 0
+push local 0
+push static 8
+eq
+not
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push pointer 0
+push this 1
+push this 2
+push local 0
+push argument 1
+call Game.drawArrowCursor 5
+pop temp 0
+label IF_FALSE0
+push constant 0
+return
+function Game.drawCrossHairs 0
+push argument 0
+pop pointer 0
+push static 2
+push constant 40
+push argument 2
+call Math.multiply 2
+add
+push static 3
+push constant 40
+push argument 1
+call Math.multiply 2
+add
+push argument 3
+call RushHourGraphics.drawCrossHairs 3
+pop temp 0
+push constant 0
+return
+function Game.drawBoard 8
+push argument 0
+pop pointer 0
+call Screen.clearScreen 0
+pop temp 0
+push constant 0
+pop local 1
+push constant 0
+not
+call Screen.setColor 1
+pop temp 0
+label WHILE_EXP0
+push local 1
+push constant 241
+lt
+not
+if-goto WHILE_END0
+push static 2
+push static 3
+push local 1
+add
+push static 2
+push constant 240
+add
+push static 3
+push local 1
+add
+call Screen.drawLine 4
+pop temp 0
+push static 2
+push local 1
+add
+pop local 0
+push local 0
+push static 3
+push local 0
+push static 3
+push constant 240
+add
+call Screen.drawLine 4
+pop temp 0
+push local 1
+push constant 40
+add
+pop local 1
+goto WHILE_EXP0
+label WHILE_END0
+push static 2
+push constant 240
+add
+push static 3
+push constant 81
+add
+push static 2
+push constant 240
+add
+push static 3
+push constant 119
+add
+call Screen.drawLine 4
+pop temp 0
+push static 2
+push constant 239
+add
+push static 3
+push constant 81
+add
+push static 2
+push constant 239
+add
+push static 3
+push constant 119
+add
+call Screen.drawLine 4
+pop temp 0
+push constant 0
+pop local 2
+label WHILE_EXP1
+push local 2
+push constant 6
+lt
+not
+if-goto WHILE_END1
+push constant 0
+pop local 3
+label WHILE_EXP2
+push local 3
+push constant 6
+lt
+not
+if-goto WHILE_END2
+push this 4
+push local 2
+push local 3
+call Board.checkVehicle 3
+pop local 5
+push local 5
+push constant 0
+eq
+not
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 2
+pop local 4
+push static 0
+pop local 7
+push constant 0
+pop local 6
+push local 5
+push constant 3
+eq
+push local 5
+push constant 4
+eq
+or
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push constant 3
+pop local 4
+label IF_FALSE1
+push local 5
+push constant 2
+eq
+push local 5
+push constant 4
+eq
+or
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
+push static 1
+pop local 7
+label IF_FALSE2
+push local 5
+push constant 5
+eq
+if-goto IF_TRUE3
+goto IF_FALSE3
+label IF_TRUE3
+push constant 0
+not
+pop local 6
+label IF_FALSE3
+push pointer 0
+push local 4
+push local 7
+push local 2
+push local 3
+push local 6
+push constant 0
+not
+call Game.drawVehicle 7
+pop temp 0
+label IF_FALSE0
+push local 3
+push constant 1
+add
+pop local 3
+goto WHILE_EXP2
+label WHILE_END2
+push local 2
+push constant 1
+add
+pop local 2
+goto WHILE_EXP1
+label WHILE_END1
+push constant 0
+return
+function Game.drawArrowCursor 2
+push argument 0
+pop pointer 0
+push constant 0
+not
+pop local 0
+push constant 0
+not
+pop local 1
+push argument 3
+push static 5
+eq
+push argument 3
+push static 4
+eq
+or
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 0
+pop local 0
+label IF_FALSE0
+push argument 3
+push static 7
+eq
+push argument 3
+push static 5
+eq
+or
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push constant 0
+pop local 1
+label IF_FALSE1
+push static 2
+push constant 40
+push argument 2
+call Math.multiply 2
+add
+push static 3
+push constant 40
+push argument 1
+call Math.multiply 2
+add
+push local 0
+push local 1
+push argument 4
+call RushHourGraphics.drawArrowCursor 5
+pop temp 0
+push constant 0
+return
+function Game.drawVehicle 2
+push argument 0
+pop pointer 0
+push static 2
+push constant 40
+push argument 4
+call Math.multiply 2
+add
+pop local 0
+push static 3
+push constant 40
+push argument 3
+call Math.multiply 2
+add
+pop local 1
+push argument 1
+push constant 2
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push argument 5
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push local 0
+push local 1
+push argument 6
+call RushHourGraphics.drawRedCar 3
+pop temp 0
+goto IF_END1
+label IF_FALSE1
+push local 0
+push local 1
+push argument 2
+push argument 6
+call RushHourGraphics.drawCar 4
+pop temp 0
+label IF_END1
+goto IF_END0
+label IF_FALSE0
+push local 0
+push local 1
+push argument 2
+push argument 6
+call RushHourGraphics.drawTruck 4
+pop temp 0
+label IF_END0
+push constant 0
+return
+function Game.dispose 0
+push argument 0
+pop pointer 0
+push constant 0
+return
