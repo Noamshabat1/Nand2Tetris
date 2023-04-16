@@ -17,22 +17,22 @@ Special thank's to professor Noam Nisan and professor Shimon Shocken for writing
     * Or(a, b)
     * Xor(a, b)
     * Mux(a, b, sel) multiplexor choose one from many
-    ![](images/mux.png)
+    ![](stuff/images/mux.png)
     * DMux(in, sel)
-    <br />![](images/dmux.png)
+    <br />![](stuff/images/dmux.png)
 
 ### [Chapter 2: Boolean arithmetic]
 * **Signed Binary Number**: Most computer systems today use the method called *2's complement*, aka *radix complement*. In 2's complement of n bits, x + (minus) x = 2 to the n. With *radix complement* we don't need to care about substraction operation. We can substract with add operation. That's super cool. So we only need Adders chip.
-<br />![radix](images/radix.png)
+<br />![radix](stuff/images/radix.png)
 
 * **HalfAdder**
-<br />![](images/half-adder.png)
+<br />![](stuff/images/half-adder.png)
 
 * **Full Adder**
-<br />![](images/full-adder.png)
+<br />![](stuff/images/full-adder.png)
 
 * **ALU**
-<br />![](images/alu.png)
+<br />![](stuff/images/alu.png)
 
 ### [Chapter 3: Sequential logic]
 * **Combinational vs Sequential Logic**
@@ -47,32 +47,32 @@ Special thank's to professor Noam Nisan and professor Shimon Shocken for writing
 * **Data Flip-Flop (DFF)** contains a clock input, a gate's input and a gate's output. DFF behavior is *out(t) = in(t-1)* where t is the current clock cycle. 
 
 * **1-bit Register (Bit)** is a storage device. It can *store*(remember) a value over time. Its behavior is *out(t) = out(t-1)*
-<br />![dff](images/dff.png)
+<br />![dff](stuff/images/dff.png)
 
 * **Memory**
-<br />![ram](images/ram.png)
+<br />![ram](stuff/images/ram.png)
 
 
 ### [Chapter 4: Machine language]
 * **A Instruction**
-<br />![a](images/a-instruction.png)
+<br />![a](stuff/images/a-instruction.png)
 * **C Instruction**
-<br />![a](images/c-instruction.png)
+<br />![a](stuff/images/c-instruction.png)
 
 
 ### [Chapter 5: Computer architecture]
 * **Central Processing Unit (CPU) of Hack Computer**
     * *CPU Abstraction*
-    <br />![abstraction](images/cpu-abstraction.png)
+    <br />![abstraction](stuff/images/cpu-abstraction.png)
     * *CPU Implementation*
-    <br />![implementation](images/cpu-implementation.png)
+    <br />![implementation](stuff/images/cpu-implementation.png)
     
 * **Hack Architecture**
-<br />![hack](images/hack-architecture.png)
+<br />![hack](stuff/images/hack-architecture.png)
 
 
 ### [Chapter 6: Assembler]
-<br />![assembler](images/assembler.png)
+<br />![assembler](stuff/images/assembler.png)
 
 * **Symbols**
     * *Label symbols* (In the program above *LOOP* and *END* are label symbols) are used to mark the memory location of the next instruction in the program. Label symbols are used for *control flow* in the program.
@@ -105,15 +105,15 @@ The compilation of high-level programming language into a low-level one focuses 
     * *kind*: field, static, local, argument
     * *scope*: class level, subroutine level
 * **Symbol table**: A data structure to keep track all *identifiers*. Whenever a new *identifier* is encountered for the first time the compiler adds its description to *symbol table*. Whennever an *identifies* is encountered elsewhere in the source code the compiler looks it up in symbol table and get all information needed from symbol table.
-![Symbol Table](images/symbol-table.png)
+![Symbol Table](stuff/images/symbol-table.png)
 
 * **Handling variable**
 
 * **Handling object**
-![](images/handling-object.png)
+![](stuff/images/handling-object.png)
 
 * **Handling array**
-![](images/handling-array.png)
+![](stuff/images/handling-array.png)
 
 #### 11.2 Command translation
 * **Handling expression**
@@ -123,4 +123,4 @@ The compilation of high-level programming language into a low-level one focuses 
 ### [Chapter 12: Operating system]
 * **Memory management**
     * *Heap management*
-    <br/>![](images/heap-management.png)
+    <br/>![](stuff/images/heap-management.png)
