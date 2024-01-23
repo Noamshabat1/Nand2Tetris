@@ -30,34 +30,21 @@ class Parser:
     - Arithmetic commands:
       - add, sub, and, or, eq, gt, lt
       - neg, not, shiftleft, shiftright
-
     - Memory segment manipulation:
       - push <segment> <number>
       - pop <segment that is not constant> <number>
-      - <segment> can be any of: argument, local, static, constant, this, that, pointer, temp
-
+      - <segment> can be any of: argument, local, static, constant, this, that, 
+                                 pointer, temp
     - Branching (only relevant for project 8):
       - label <label-name>
       - if-goto <label-name>
       - goto <label-name>
       - <label-name> can be any combination of non-whitespace characters.
-
     - Functions (only relevant for project 8):
       - call <function-name> <n-args>
       - function <function-name> <n-vars>
       - return
     """
-
-    @staticmethod
-    def drop_comments(arr: list, i: int) -> str:
-        line_list = arr[i].partition("//")
-        line = line_list[0]
-        return line.strip()
-
-    @staticmethod
-    def is_white_space(arr: list, i: int) -> bool:
-        line = arr[i].replace(" ", "")
-        return line == "" or line[0] == "/"
 
     def __init__(self, input_file: typing.TextIO) -> None:
         """Gets ready to parse the input file.
@@ -65,17 +52,25 @@ class Parser:
         Args:
             input_file (typing.TextIO): input file.
         """
-        # A good place to start is to read all the lines of the input:
-        # input_lines = input_file.read().splitlines()
-        arr = input_file.read().splitlines()
-
-        number_of_commends = len(arr)
-        self.all_commends: list[str] = []
+        lines = input_file.read().splitlines()
+        self.all_commends = [self._strip_comments(line) for line in lines if
+                             not self._is_whitespace_or_comment(line)]
         self.current_command_index = 0
 
-        for i in range(number_of_commends):
-            if not Parser.is_white_space(arr, i):
-                self.all_commends.append(Parser.drop_comments(arr, i))
+    @staticmethod
+    def _strip_comments(line: str) -> str:
+        """
+        Strips comments from a line of code.
+        """
+        return line.partition("//")[0].strip()
+
+    @staticmethod
+    def _is_whitespace_or_comment(line: str) -> bool:
+        """
+        Checks if a line is whitespace or a comment.
+        """
+        stripped_line = line.strip()
+        return not stripped_line or stripped_line.startswith("//")
 
     def has_more_commands(self) -> bool:
         """Are there more commands in the input?
@@ -83,15 +78,15 @@ class Parser:
         Returns:
             bool: True if there are more commands, False otherwise.
         """
-        number_of_commands = len(self.all_commends)
-        return self.current_command_index != number_of_commands
+        return self.current_command_index < len(self.all_commends)
 
     def advance(self) -> None:
         """Reads the next command from the input and makes it the current 
-        command. Should be called only if it has_more_commands() is true. Initially
+        command. Should be called only if has_more_commands() is true. Initially
         there is no current command.
         """
-        self.current_command_index += 1
+        if self.has_more_commands():
+            self.current_command_index += 1
 
     def command_type(self) -> str:
         """
@@ -102,38 +97,44 @@ class Parser:
             "C_PUSH", "C_POP", "C_LABEL", "C_GOTO", "C_IF", "C_FUNCTION",
             "C_RETURN", "C_CALL".
         """
-        arithmetic_commands = {"add", "sub", "and", "or", "eq", "gt", "lt", "neg", "not", "shiftleft", "shiftright"}
-        cmd = self.all_commends[self.current_command_index].split(" ")[0]
-        if cmd in arithmetic_commands:
+        arithmetic_commands = {"add", "sub", "and", "or", "eq", "gt", "lt",
+                               "neg", "not", "shiftleft", "shiftright"}
+
+        # set the current command.
+        command = self.all_commends[self.current_command_index].split(" ")[0]
+
+        # Determine the type of the current command.
+        if command in arithmetic_commands:
             return "C_ARITHMETIC"
-        elif cmd == "push":
+
+        elif command == "push":
             return "C_PUSH"
-        elif cmd == "pop":
+
+        elif command == "pop":
             return "C_POP"
 
         # project 8
 
-        elif cmd == "label":
-            return "C_LABEL"
-        # Checking if-goto before goto
-        elif cmd == "if-goto":
-            return "C_IF"
-        elif cmd == "goto":
-            return "C_GOTO"
-        elif cmd == "function":
-            return "C_FUNCTION"
-        elif cmd == "return":
-            return "C_RETURN"
-        elif cmd == "call":
-            return "C_CALL"
+        # elif command == "label":
+        #     return "C_LABEL"
+        #
+        # elif command == "if-goto":
+        #     return "C_IF"
+        #
+        # elif command == "goto":
+        #     return "C_GOTO"
+        #
+        # elif command == "function":
+        #     return "C_FUNCTION"
+        #
+        # elif command == "return":
+        #     return "C_RETURN"
+        #
+        # elif command == "call":
+        #     return "C_CALL"
+
         else:
-            # "C_LABEL"
-            # "C_GOTO",
-            # "C_IF"
-            # "C_FUNCTION"
-            # "C_RETURN"
-            # "C_CALL"
-            raise NameError("Unexpected Command Type")
+            raise ValueError(f"Unexpected command type: {command}")
 
     def arg1(self) -> str:
         """
@@ -142,10 +143,14 @@ class Parser:
             "C_ARITHMETIC", the command itself (add, sub, etc.) is returned. 
             Should not be called if the current command is "C_RETURN".
         """
-        if self.command_type() == "C_ARITHMETIC":
-            return self.all_commends[self.current_command_index].split(" ")[0]
-        else:
-            return self.all_commends[self.current_command_index].split(" ")[1]
+        if self.command_type() == "C_RETURN":
+            raise ValueError(
+                "The 'C_RETURN' command does not have an argument.")
+
+        current_command_parts = self._current_command_split()
+        arg1 = current_command_parts[0] if \
+            self.command_type() == "C_ARITHMETIC" else current_command_parts[1]
+        return arg1
 
     def arg2(self) -> int:
         """
@@ -156,3 +161,12 @@ class Parser:
         """
         arg2 = int(self.all_commends[self.current_command_index].split(" ")[2])
         return arg2
+
+    def _current_command_split(self) -> list[str]:
+        """
+        Splits the current command into its constituent parts.
+
+        Returns:
+            list[str]: The split parts of the current command.
+        """
+        return self.all_commends[self.current_command_index].split()
