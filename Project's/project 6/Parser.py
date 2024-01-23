@@ -7,7 +7,6 @@ Unported [License](https://creativecommons.org/licenses/by-nc-sa/3.0/).
 """
 import typing
 
-
 class Parser:
     """Encapsulates access to the input code. Reads an assembly program
     by reading each command line-by-line, parses the current command,
@@ -15,51 +14,49 @@ class Parser:
     and symbols). In addition, removes all white space and comments.
     """
 
-    @staticmethod
-    def drop_comments(arr: list, i: int) -> str:
-        line_list = arr[i].partition("//")
-        line = line_list[0]
-        return line.strip()
-
-    def restart(self) -> None:
-        self.current_command = 0
-
-    @staticmethod
-    def is_white_space(arr: list, i: int) -> bool:
-        line = arr[i].replace(" ", "")
-        return line == "" or line[0] == "/"
-
     def __init__(self, input_file: typing.TextIO) -> None:
         """Opens the input file and gets ready to parse it.
+
         Args:
             input_file (typing.TextIO): input file.
         """
-        # A good place to start is:
+        # Your code goes here!
+        # A good place to start is to read all the lines of the input:
         # input_lines = input_file.read().splitlines()
+        self.commands = [
+            self._remove_comments_from_line(line)
+            for line in input_file.read().splitlines()
+            if not self._is_line_empty_or_comment(line)
+        ]
+        self.current_command_index = 0
 
-        arr = input_file.read().splitlines()
-        number_of_commends = len(arr)
-        self.all_commends = []
-        for i in range(number_of_commends):
-            if i == number_of_commends:
-                break
-            if not self.is_white_space(arr, i):
-                self.all_commends.append(self.drop_comments(arr, i))
-        self.current_command = 0
+    @staticmethod
+    def _remove_comments_from_line(line: str) -> str:
+        """Removes comments from a line of assembly code."""
+        return line.split("//")[0].strip()
+
+    @staticmethod
+    def _is_line_empty_or_comment(line: str) -> bool:
+        """Checks if a line is empty or a comment."""
+        stripped_line = line.strip()
+        return not stripped_line or stripped_line.startswith("//")
 
     def has_more_commands(self) -> bool:
         """Are there more commands in the input?
+
         Returns:
             bool: True if there are more commands, False otherwise.
         """
-        number_of_commands = len(self.all_commends)
-        return self.current_command != number_of_commands
+        # Your code goes here!
+        return self.current_command_index < len(self.commands)
 
     def advance(self) -> None:
         """Reads the next command from the input and makes it the current command.
-        Should be called only if it has_more_commands() is true.
+        Should be called only if has_more_commands() is true.
         """
-        self.current_command += 1
+        # Your code goes here!
+        if self.has_more_commands():
+            self.current_command_index += 1
 
     def command_type(self) -> str:
         """
@@ -69,9 +66,11 @@ class Parser:
             "C_COMMAND" for dest=comp;jump
             "L_COMMAND" (actually, pseudo-command) for (Xxx) where Xxx is a symbol
         """
-        if self.all_commends[self.current_command][0] == "@":
+        # Your code goes here!
+        current_command = self.commands[self.current_command_index]
+        if current_command.startswith("@"):
             return "A_COMMAND"
-        elif self.all_commends[self.current_command][0] == "(":
+        elif current_command.startswith("("):
             return "L_COMMAND"
         else:
             return "C_COMMAND"
@@ -80,55 +79,49 @@ class Parser:
         """
         Returns:
             str: the symbol or decimal Xxx of the current command @Xxx or
-            (Xxx). Should be called only when command_type() is "A_COMMAND" or
+            (Xxx). Should be called only when command_type() is "A_COMMAND" or 
             "L_COMMAND".
         """
-        line = self.all_commends[self.current_command].replace(" ", "")
-        if self.command_type() == "A_COMMAND":
-            return line[1:]
-        else:
-            size = len(line)
-            return line[1: size - 1]
+        # Your code goes here!
+        current_command = self.commands[self.current_command_index]
+        if self.command_type() in ["A_COMMAND", "L_COMMAND"]:
+            return current_command.strip("@()")
 
     def dest(self) -> str:
         """
         Returns:
-            str: the dest mnemonic in the current C-command. Should be called
+            str: the dest mnemonic in the current C-command. Should be called 
             only when commandType() is "C_COMMAND".
         """
-        line = self.all_commends[self.current_command].replace(" ", "")
-        if line.find("=") == -1:
-            return ""
-        arr = line.partition("=")
-        return arr[0].strip()
+        # Your code goes here!
+        current_command = self.commands[self.current_command_index]
+        if "=" in current_command:
+            return current_command.split("=")[0].strip()
+        return ""
 
     def comp(self) -> str:
         """
         Returns:
-            str: the comp mnemonic in the current C-command. Should be called
+            str: the comp mnemonic in the current C-command. Should be called 
             only when commandType() is "C_COMMAND".
         """
-        line = self.all_commends[self.current_command].replace(" ", "")
-        if line.find("=") == -1:  # checking if the command doesn't include the dest part like 0;JMP
-            arr = line.partition(";")
-            return arr[0]
-        elif line.find(";") == -1:  # checking if the command doesn't include the dest part like 0;JMP
-            arr = line.partition("=")
-            return arr[2]
-        else:
-            arr_first = line.partition("=")  # makes an array of prev = at [0] and next =
-            arr_sec = arr_first[2].split(";")  # get the comp and the jmp in arr
-            return arr_sec[0].strip()
+        # Your code goes here!
+        current_command = self.commands[self.current_command_index]
+        parts = current_command.split("=")[-1].split(";")
+        return parts[0].strip()
 
     def jump(self) -> str:
         """
         Returns:
-            str: the jump mnemonic in the current C-command. Should be called
+            str: the jump mnemonic in the current C-command. Should be called 
             only when commandType() is "C_COMMAND".
         """
-        line = self.all_commends[self.current_command]
-        line = line.replace(" ", "")
-        if line.find(";") == -1:
-            return ""
-        arr = line.partition(";")
-        return arr[2].strip()
+        # Your code goes here!
+        current_command = self.commands[self.current_command_index]
+        if ";" in current_command:
+            return current_command.split(";")[-1].strip()
+        return ""
+
+    def restart(self) -> None:
+        """Resets the command index to the beginning of the file."""
+        self.current_command_index = 0
