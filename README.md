@@ -1,5 +1,20 @@
-# Nand2Tetris
-Nand2Tetris: Build a computer system from the ground up, from nand to tetris (nand is the fundamental logic gate to build others gates), from hardware to software.<br/>
+<div align="center">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Hebrew_University_Logo.svg/1200px-Hebrew_University_Logo.svg.png" alt="huji-logo" height="150px" />
+  <h1 align="center" style="border-bottom: none"><b>From Nand to Tetris</b></h1>
+
+  <p align="left">
+    As a Computer Science Student in the <a href="https://new.huji.ac.il/"><b>Hebrew University of Jerusalem</b></a>, I was required to take the <b>From Nand to Tetris</b> course.
+    <br>
+    This is a course that teaches you about logic gates, hardware, compilers and operating systems, using <b>Python</b> as the main language.
+    <br>
+    It lasted <b>13 weeks</b>, in which, we've submitted a total of 12 exercises in various fields and topics.
+    <br>
+    <br>
+    More information can be found <a href="https://shnaton.huji.ac.il/index.php/NewSyl/67925/2/2022/">Here</a>.
+  </p>
+</div>
+
+<br>
 
 This github repository is place I store my taken notes and exercises when reading the book [The Elements of Computing Systems: Building a Modern Computer from First Principles](https://www.amazon.com/Elements-Computing-Systems-Building-Principles/dp/0262640686) and learning the [related courses](https://www.coursera.org/learn/build-a-computer) on Coursera.org.<br/>
 
