@@ -13,7 +13,6 @@
     More information can be found <a href="https://shnaton.huji.ac.il/index.php/NewSyl/67925/2/2022/">Here</a>.
   </p>
 </div>
-<div>
 
 <br>
 
