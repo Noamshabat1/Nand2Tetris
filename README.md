@@ -1,6 +1,6 @@
 <div align="center">
   <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Hebrew_University_Logo.svg/1200px-Hebrew_University_Logo.svg.png" alt="huji-logo" height="150px" />
-  <h1 align="center" style="border-bottom: none"><b>From Nand to Tetris</b></h1>
+  <h1 align="center" style="border-bottom: none"><b>From Nand2Tetris</b></h1>
 
   <p align="left">
     As a Computer Science Student in the <a href="https://new.huji.ac.il/"><b>Hebrew University of Jerusalem</b></a>, I was required to take the <b>From Nand to Tetris</b> course.
