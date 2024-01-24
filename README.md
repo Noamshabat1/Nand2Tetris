@@ -16,12 +16,6 @@
 
 <br>
 
-This github repository is place I store my taken notes and exercises when reading the book [The Elements of Computing Systems: Building a Modern Computer from First Principles](https://www.amazon.com/Elements-Computing-Systems-Building-Principles/dp/0262640686) and learning the [related courses](https://www.coursera.org/learn/build-a-computer) on Coursera.org.<br/>
-
-Special thank's to professor Noam Nisan and professor Shimon Shocken for writing a super cool book and creating excellent tools and teaching great courses.
-
-
-
 ### [Chapter 1: Boolean logic]
 * **Truth table representation**
 * **Canonical representation**
