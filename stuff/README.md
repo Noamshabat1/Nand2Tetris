@@ -17,6 +17,7 @@ Special thank's to professor Noam Nisan and professor Shimon Shocken for writing
     * Or(a, b)
     * Xor(a, b)
     * Mux(a, b, sel) multiplexor choose one from many
+      
     ![](images/mux.png)
     * DMux(in, sel)
     <br />![](images/dmux.png)
