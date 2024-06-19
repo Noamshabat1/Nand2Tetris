@@ -27,8 +27,10 @@
     * Or(a, b)
     * Xor(a, b)
     * Mux(a, b, sel) multiplexor choose one from many
+      
     ![](stuff/images/mux.png)
     * DMux(in, sel)
+      
     ![](stuff/images/dmux.png)
 
 ### [Chapter 2: Boolean arithmetic]
