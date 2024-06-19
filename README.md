@@ -35,15 +35,19 @@
 
 ### [Chapter 2: Boolean arithmetic]
 * **Signed Binary Number**: Most computer systems today use the method called *2's complement*, aka *radix complement*. In 2's complement of n bits, x + (minus) x = 2 to the n. With *radix complement* we don't need to care about subtraction operation. We can subtract with add operation. That's super cool. So we only need Adders chip.
+  
     ![radix](stuff/images/radix.png)
 
 * **HalfAdder**
+  
     ![half-adder](stuff/images/half-adder.png)
 
 * **Full Adder**
+  
     ![full-adder](stuff/images/full-adder.png)
 
 * **ALU**
+  
     ![alu](stuff/images/alu.png)
 
 ### [Chapter 3: Sequential logic]
